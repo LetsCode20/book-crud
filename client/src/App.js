@@ -2,11 +2,12 @@ import React from 'react';
 // React Router Dom
 import { Routes, Route } from 'react-router-dom';
 // Pages
-import Home from './pages/home/Home';
+import Home from './pages/Home/Home';
 // Components
-import ShowBook from './components/show/ShowBook';
-import EditBook from './components/edit/EditBook';
-import CreateBook from './components/create/CreateBook';
+import GetBooks from './components/GetBooks/GetBooks';
+import ShowBook from './components/ShowBook/ShowBook';
+import EditBook from './components/EditBook/EditBook';
+import CreateBook from './components/CreateBook/CreateBook';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path='/'>
           <Route index element={<Home />} />
           <Route path='books'>
+            <Route index element={<GetBooks />} />
             <Route path='show'>
               <Route path=':bookId' element={<ShowBook />} />
             </Route>
