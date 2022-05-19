@@ -7,5 +7,17 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(150deg, #16003b, #413f42);
+  min-height: 100vh;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
 }

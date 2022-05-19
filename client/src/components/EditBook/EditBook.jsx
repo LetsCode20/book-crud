@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-// useMutation Apollo
-import { useMutation } from '@apollo/client';
+import React from 'react';
 // React Router Dom
 import { Link, useParams, useNavigate } from 'react-router-dom';
+// useMutation Apollo
+import { useMutation } from '@apollo/client';
 // GraphQL Mutations
 import { UPDATE_BOOK_MUTATION } from '../../GraphQL/Mutations';
+// React Hook Form
+import { useForm } from 'react-hook-form';
+// Yup Resolver
+import { yupResolver } from '@hookform/resolvers/yup';
+// Components
+import FormInput from '../FormInput/FormInput';
+// Schema Validation
+import { YupBookSchema } from '../../assets/yupSchema/YupBookSchema';
 // Style
 import './EditBook.scss';
 
@@ -12,38 +20,35 @@ const EditBook = () => {
   const { bookId } = useParams();
   let navigate = useNavigate();
 
-  const [updateIsbn, setUpdateIsbn] = useState(0);
-  const [updateTitle, setUpdateTitle] = useState('');
-  const [updateAuthor, setUpdateAuthor] = useState('');
-  const [updateDescription, setUpdateDescription] = useState('');
-  const [updatePublished_year, setUpdatePublished_year] = useState(0);
-  const [updatePublisher, setUpdatePublisher] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(YupBookSchema),
+  });
 
   const [updateBook, { error }] = useMutation(UPDATE_BOOK_MUTATION);
 
   if (error) return <p>Error :(</p>;
 
-  const handleUpdateBook = () => {
-    if (
-      !updateIsbn ||
-      !updateTitle ||
-      !updateAuthor ||
-      !updateDescription ||
-      !updatePublished_year ||
-      !updatePublisher
-    ) {
-      return;
-    }
-
+  const handleUpdateBook = ({
+    isbn,
+    title,
+    author,
+    description,
+    published_year,
+    publisher,
+  }) => {
     updateBook({
       variables: {
         id: bookId,
-        isbn: updateIsbn,
-        title: updateTitle,
-        author: updateAuthor,
-        description: updateDescription,
-        published_year: updatePublished_year,
-        publisher: updatePublisher,
+        isbn: isbn,
+        title: title,
+        author: author,
+        description: description,
+        published_year: published_year,
+        publisher: publisher,
       },
     });
 
@@ -53,78 +58,68 @@ const EditBook = () => {
 
     navigate('/books');
   };
+
   return (
-    <div>
+    <div className='form'>
       <h2>Create a Book</h2>
-      <form onSubmit={handleUpdateBook}>
-        <div className='formInput'>
-          <label htmlFor='isbn'>ISBN</label>
-          <input
-            type='number'
-            id='isbn'
-            onChange={(e) => setUpdateIsbn(e.target.value)}
-            placeholder=' International Standard Book Number'
-            required
-          />
-        </div>
-        <div className='formInput'>
-          <label htmlFor='title'>Title</label>
-          <input
-            type='text'
-            id='title'
-            onChange={(e) => setUpdateTitle(e.target.value)}
-            // value={title}
-            placeholder='Title of the Book'
-            required
-          />
-        </div>
-        <div className='formInput'>
-          <label htmlFor='author'>Author</label>
-          <input
-            type='text'
-            id='author'
-            onChange={(e) => setUpdateAuthor(e.target.value)}
-            // value={author}
-            placeholder='Author of the Book'
-            required
-          />
-        </div>
-        <div className='formInput'>
-          <label htmlFor='description'>Description</label>
-          <textarea
-            rows={10}
-            columns={10}
-            id='description'
-            onChange={(e) => setUpdateDescription(e.target.value)}
-            // value={description}
-            placeholder='Enter the description of Book'
-            required
-          />
-        </div>
-        <div className='formInput'>
-          <label htmlFor='publishedyear'>Published Year</label>
-          <input
-            type='number'
-            id='publishedyear'
-            onChange={(e) => setUpdatePublished_year(parseInt(e.target.value))}
-            // value={published_year}
-            placeholder='Published Year of the Book'
-            required
-          />
-        </div>
-        <div className='formInput'>
-          <label htmlFor='publihser'>Publihser</label>
-          <input
-            type='text'
-            id='publihser'
-            onChange={(e) => setUpdatePublisher(e.target.value)}
-            // value={publisher}
-            placeholder='Publihser of the Book'
-            required
-          />
-        </div>
+      <form className='formContainer' onSubmit={handleSubmit(handleUpdateBook)}>
+        <FormInput
+          id='isbn'
+          type='text'
+          name='isbn'
+          label='Isbn'
+          {...register('isbn')}
+          error={errors?.isbn?.message}
+        />
+
+        <FormInput
+          id='title'
+          type='text'
+          name='title'
+          label='Title'
+          {...register('title')}
+          error={errors?.title?.message}
+        />
+
+        <FormInput
+          id='author'
+          type='text'
+          name='author'
+          label='Author'
+          {...register('author')}
+          error={errors?.author?.message}
+        />
+
+        <FormInput
+          id='publihsed_year'
+          type='number'
+          name='publihsed_year'
+          label='Published_year'
+          {...register('published_year')}
+          error={errors?.published_year?.message}
+        />
+
+        <FormInput
+          id='publihser'
+          type='text'
+          name='publihser'
+          label='Publisher'
+          {...register('publisher')}
+          error={errors?.publisher?.message}
+        />
+
+        <FormInput
+          id='description'
+          type='text'
+          name='description'
+          label='Description'
+          description='true'
+          {...register('description')}
+          error={errors?.description?.message}
+        />
+
         <div className='formButton'>
-          <button type='submit'>Submit</button>
+          <button>Submit</button>
         </div>
       </form>
 

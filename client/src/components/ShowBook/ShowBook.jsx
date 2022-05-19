@@ -32,9 +32,10 @@ const ShowBook = () => {
       <p>description: {description}</p>
       <p>publihser: {publisher}</p>
       <p>published_year: {published_year}</p>
-      <Link to='/'>Home Page</Link>
-      <br />
       <Link to='/books'>Books</Link>
+      <br />
+      <Link to={`/books/${_id}`}>Edit</Link>
+      <br />
     </div>
   );
 };
