@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// Style
-import './GetBooks.scss';
-// Components
-import DataTable from '../Table/Table';
 // useBooks Hooks
 import { useBooks } from '../../hooks/useBooks';
+// Components
+import List from '../List/List';
+// Style
+import './GetBooks.scss';
 
 const GetBooks = () => {
   const { loading, error, data } = useBooks();
@@ -21,7 +21,7 @@ const GetBooks = () => {
 
   return (
     <div>
-      <DataTable books={books} />
+      <List books={books} />
     </div>
   );
 };
