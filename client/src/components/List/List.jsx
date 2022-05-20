@@ -88,6 +88,7 @@ const List = ({ books }) => {
 
   return (
     <div className='datatable'>
+      <h2>Table of Books</h2>
       <div className='datatableTitle'>
         Add New Book
         <Link to='create' className='link'>
