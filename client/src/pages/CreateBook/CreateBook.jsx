@@ -1,23 +1,22 @@
 import React from 'react';
 // React Router Dom
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // useMutation Apollo
 import { useMutation } from '@apollo/client';
-// GraphQL Mutations
-import { UPDATE_BOOK_MUTATION } from '../../GraphQL/Mutations';
+// Book Mutation
+import { ADD_BOOK_MUTATION } from '../../GraphQL/Mutations';
 // React Hook Form
 import { useForm } from 'react-hook-form';
 // Yup Resolver
 import { yupResolver } from '@hookform/resolvers/yup';
 // Components
-import FormInput from '../FormInput/FormInput';
+import FormInput from '../../components/FormInput/FormInput';
 // Schema Validation
 import { YupBookSchema } from '../../assets/yupSchema/YupBookSchema';
 // Style
-import './EditBook.scss';
+import './CreateBook.scss';
 
-const EditBook = () => {
-  const { bookId } = useParams();
+const CreateBook = () => {
   let navigate = useNavigate();
 
   const {
@@ -28,11 +27,9 @@ const EditBook = () => {
     resolver: yupResolver(YupBookSchema),
   });
 
-  const [updateBook, { error }] = useMutation(UPDATE_BOOK_MUTATION);
+  const [addBook, { error }] = useMutation(ADD_BOOK_MUTATION);
 
-  if (error) return <p>Error :(</p>;
-
-  const handleUpdateBook = ({
+  const handleAddBook = ({
     isbn,
     title,
     author,
@@ -40,9 +37,8 @@ const EditBook = () => {
     published_year,
     publisher,
   }) => {
-    updateBook({
+    addBook({
       variables: {
-        id: bookId,
         isbn: isbn,
         title: title,
         author: author,
@@ -52,18 +48,19 @@ const EditBook = () => {
       },
     });
 
-    if (error) {
-      throw new Error(error);
-    }
+    // Redirect to Home Page
+    navigate('/');
 
-    navigate('/books');
+    if (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className='form'>
       <div className='formContainer'>
-        <h2 className='formTitle'>Update Book</h2>
-        <form onSubmit={handleSubmit(handleUpdateBook)}>
+        <h2 className='formTitle'>Create a Book</h2>
+        <form onSubmit={handleSubmit(handleAddBook)}>
           <div className='formGroup'>
             <FormInput
               id='isbn'
@@ -120,8 +117,8 @@ const EditBook = () => {
               type='text'
               name='description'
               label='Description'
-              placeholder='Enter description'
               description='true'
+              placeholder='Enter description'
               {...register('description')}
               error={errors?.description?.message}
             />
@@ -130,12 +127,10 @@ const EditBook = () => {
           <button className='formButton'>Submit</button>
         </form>
 
-        <Link className='formLink' to='/books'>
-          Go to Books
-        </Link>
+        <Link to='/books'>Go to Books</Link>
       </div>
     </div>
   );
 };
 
-export default EditBook;
+export default CreateBook;

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 // useBooks Hooks
 import { useBooks } from '../../hooks/useBooks';
 // Components
-import List from '../List/List';
+import List from '../../components/List/List';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 // Style
 import './GetBooks.scss';
 
@@ -16,7 +17,7 @@ const GetBooks = () => {
     }
   }, [data, books]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p>Error :(</p>;
 
   return (

@@ -20,12 +20,16 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { REMOVE_BOOK_MUTATION } from '../../GraphQL/Mutations';
 // Style
 import './List.scss';
+// Icon
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const List = ({ books }) => {
   let navigate = useNavigate('');
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  // Handle Change Page
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -35,6 +39,7 @@ const List = ({ books }) => {
     setPage(0);
   };
 
+  // Handle Remove Book
   const [removeBook, { error }] = useMutation(REMOVE_BOOK_MUTATION);
 
   const handleRemoveBook = (id) => {
@@ -51,7 +56,7 @@ const List = ({ books }) => {
     navigate('/');
   };
 
-  const columns = [
+  const tableHeader = [
     { id: 1, field: 'id', headerName: 'ID', flex: 1 },
     { id: 2, field: 'title', headerName: 'Title', flex: 1 },
     { id: 3, field: 'author', headerName: 'Author', flex: 1 },
@@ -86,16 +91,20 @@ const List = ({ books }) => {
       <div className='datatableTitle'>
         Add New Book
         <Link to='create' className='link'>
+          <AddCircleOutlineIcon />
           Add new
         </Link>
       </div>
 
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <Paper
+        sx={{ width: '100%', overflow: 'hidden' }}
+        className='tableContainer'
+      >
         <TableContainer sx={{ maxHeight: 440 }} className='table'>
           <Table stickyHeader aria-label='sticky table'>
             <TableHead>
               <TableRow>
-                {columns.map((column) => (
+                {tableHeader.map((column) => (
                   <TableCell
                     className='tableCell'
                     key={column.id}
@@ -110,19 +119,28 @@ const List = ({ books }) => {
               {books
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((book) => {
+                  const bookSlice = (bookCont) =>
+                    bookCont.length > 50
+                      ? `${bookCont.slice(0, 50)}...`
+                      : bookCont;
+
                   return (
                     <TableRow tabIndex={-1} key={book._id}>
                       <TableCell className='tableCell'>{book._id}</TableCell>
-                      <TableCell className='tableCell'>{book.title}</TableCell>
-                      <TableCell className='tableCell'>{book.author}</TableCell>
                       <TableCell className='tableCell'>
-                        {book.description}
+                        {bookSlice(book.title)}
                       </TableCell>
                       <TableCell className='tableCell'>
-                        {book.publisher}
+                        {bookSlice(book.author)}
                       </TableCell>
                       <TableCell className='tableCell'>
-                        {book.published_year}
+                        {bookSlice(book.description)}
+                      </TableCell>
+                      <TableCell className='tableCell'>
+                        {bookSlice(book.publisher)}
+                      </TableCell>
+                      <TableCell className='tableCell'>
+                        {bookSlice(book.published_year)}
                       </TableCell>
                       <TableCell className='tableCell'>
                         <div className='cellAction'>
@@ -147,7 +165,8 @@ const List = ({ books }) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          className='tablePagination'
+          rowsPerPageOptions={[1, 10, 25, 100]}
           component='div'
           count={books.length}
           rowsPerPage={rowsPerPage}

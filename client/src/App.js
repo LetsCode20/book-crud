@@ -4,14 +4,16 @@ import { Routes, Route } from 'react-router-dom';
 // Pages
 import Home from './pages/Home/Home';
 // Components
-import GetBooks from './components/GetBooks/GetBooks';
-import ShowBook from './components/ShowBook/ShowBook';
-import EditBook from './components/EditBook/EditBook';
-import CreateBook from './components/CreateBook/CreateBook';
+import GetBooks from './pages/GetBooks/GetBooks';
+import ShowBook from './pages/ShowBook/ShowBook';
+import EditBook from './pages/EditBook/EditBook';
+import CreateBook from './pages/CreateBook/CreateBook';
+import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
   return (
     <div className='app'>
+      <Navbar />
       <Routes>
         <Route path='/'>
           <Route index element={<Home />} />

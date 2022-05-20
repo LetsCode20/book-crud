@@ -1,15 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// Images
+import GraphQLImg from '../../assets/images/GraphQL.png';
+import ReactImg from '../../assets/images/React.png';
+import ApolloClientImg from '../../assets/images/Apollo.png';
+import NodeJsImg from '../../assets/images/NodeJS.png';
+import MongoDBImg from '../../assets/images/MongoDB.png';
+// Style
+import './Home.scss';
 
 const Home = () => {
   return (
-    <div>
-      <h4>
-        <Link to='/books'>List of Books</Link>
-      </h4>
-      <h4>
-        <Link to='/books/create'>Add Book</Link>
-      </h4>
+    <div className='home'>
+      <div className='homeContainer'>
+        <h1 className='homeTitle'>Welcome to Books CRUD</h1>
+        <h3 className='homeDetails'>
+          This Full Stack Web App created with Express, MongoDB, GraphQL, Apollo
+          & React
+        </h3>
+        <p className='homeFunctions'>
+          You can read, create, delete & update books
+        </p>
+        <div className='homeImages'>
+          <img src={`${ReactImg}`} alt='react' className='homeImage' />
+          <img src={`${GraphQLImg}`} alt='graphql' className='homeImage' />
+          <img src={`${ApolloClientImg}`} alt='apollo' className='homeImage' />
+          <img src={`${NodeJsImg}`} alt='nodejs' className='homeImage' />
+          <img src={`${MongoDBImg}`} alt='mongodb' className='homeImage' />
+        </div>
+      </div>
     </div>
   );
 };

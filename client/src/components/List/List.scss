@@ -11,18 +11,35 @@
     justify-content: space-between;
 
     .link {
-      color: #ff8e7f;
+      display: flex;
+      align-items: center;
+      color: #fff;
       font-size: 16px;
       font-weight: 400;
       padding: 5px;
-      border: 1px solid #ff8e7f;
+      border: 1px solid #85586f;
       border-radius: 5px;
       transition: all 0.1s ease-out;
 
+      svg {
+        margin-right: 5px;
+      }
+
       &:hover {
-        background-color: #ff8e7f;
+        background-color: #85586f;
         color: #fff;
       }
+    }
+  }
+
+  .tableContainer,
+  .tableCell,
+  .tablePagination {
+    background-color: #2a2550;
+    color: #fff;
+
+    & svg {
+      color: #ccc;
     }
   }
 
