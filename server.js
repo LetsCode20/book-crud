@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const app = express();
 
-const { connectDB } = require('./server/config/index');
+const { connectDB } = require('./config/index');
 connectDB();
 
 app.use('*', cors());
