@@ -13,8 +13,8 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-const staticFiles = express.static(path.join(__dirname, './client/build'));
-app.use(staticFiles);
+// const staticFiles = express.static(path.join(__dirname, './client/build'));
+// app.use(staticFiles);
 
 app.use('*', cors());
 app.use(
@@ -27,7 +27,7 @@ app.use(
   })
 );
 
-app.use('/*', staticFiles);
+// app.use('/*', staticFiles);
 
 const PORT = process.env.PORT || 4000;
 
