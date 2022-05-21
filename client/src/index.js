@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: 'https://graphql-books-crud.herokuapp.com/graphql',
   cache: new InMemoryCache(),
 });
 

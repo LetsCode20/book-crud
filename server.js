@@ -7,6 +7,7 @@ const schema = require('./bookSchemas.js');
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -37,10 +38,10 @@ app.use(
   })
 );
 
-app.use(express.static('./client/build'));
+app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
