@@ -13,6 +13,9 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
+const staticFiles = express.static(path.join(__dirname, './client/build'));
+app.use(staticFiles);
+
 app.use('*', cors());
 app.use(
   '/graphql',
@@ -24,11 +27,7 @@ app.use(
   })
 );
 
-app.use(express.static('public'));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
+app.use('/*', staticFiles);
 
 const PORT = process.env.PORT || 4000;
 
