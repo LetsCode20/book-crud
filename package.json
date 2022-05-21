@@ -2,10 +2,10 @@
   "name": "crud-app",
   "version": "1.0.0",
   "description": "Book Crud App mern graphql",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "node server.js",
+    "start": "node server",
+    "server": "node server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
