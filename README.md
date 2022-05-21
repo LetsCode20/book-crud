@@ -25,4 +25,4 @@ Full Stack App (MongoDb, Express, GraphQL, Apollo & React)
 ![Update Book Page](./client/src/assets/images-markdown/updateForm.png)
 
 - Hope you like it.
-- Follow me on instagram: [@yassinecode]('https://www.instagram.com/yassinecode/')
+- Follow me on instagram: [@yassinecode](https://www.instagram.com/yassinecode/)
