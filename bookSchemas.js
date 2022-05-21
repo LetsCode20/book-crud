@@ -6,8 +6,8 @@ const {
   GraphQLString,
   GraphQLInt,
 } = require('graphql');
-const BookModel = require('./models/Book');
-const BookType = require('./graphql/TypeDefs/BooksType');
+const BookModel = require('./models/Book.js');
+const BookType = require('./graphql/TypeDefs/BooksType.js');
 
 const bookQueryType = new GraphQLObjectType({
   name: 'Query',
