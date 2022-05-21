@@ -20,6 +20,12 @@ mongoose
     console.error('Error connecting to Mongo', err);
   });
 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function () {
+  console.log('Connected successfully');
+});
+
 app.use('*', cors());
 app.use(
   '/graphql',
