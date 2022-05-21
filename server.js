@@ -2,13 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
-const { connectDB } = require('./config/config');
+// const { connectDB } = require('./config');
 const schema = require('./bookSchemas');
 dotenv.config();
 
 const app = express();
 
-connectDB();
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use('*', cors());
 app.use(
