@@ -2,14 +2,13 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
+const { connectDB } = require('./config/index');
+const schema = require('./bookSchemas');
 dotenv.config();
 
 const app = express();
 
-const { connectDB } = require('./config/index');
 connectDB();
-
-const schema = require('./bookSchemas');
 
 app.use('*', cors());
 app.use(
@@ -24,9 +23,9 @@ app.use(
 
 app.use(express.static('public'));
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 const PORT = process.env.PORT || 4000;
 
