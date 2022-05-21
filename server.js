@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
-// const { connectDB } = require('./config');
 const schema = require('./bookSchemas.js');
 dotenv.config();
 
