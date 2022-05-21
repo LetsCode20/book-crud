@@ -1,6 +1,7 @@
 {
   "name": "crud-app",
   "version": "1.0.0",
+  "author": "Yassine Code",
   "description": "Book Crud App mern graphql",
   "main": "server.js",
   "scripts": {
@@ -10,7 +11,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "author": "Yassine Code",
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
