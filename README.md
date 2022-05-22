@@ -10,8 +10,6 @@ Full Stack App (MongoDb, Express, GraphQL, Apollo & React)
 
 ## How to Run Web App
 
-<hr />
-
 - Clone Web App
 
 ```
@@ -32,7 +30,6 @@ Full Stack App (MongoDb, Express, GraphQL, Apollo & React)
 
 ## Preview Books CRUD
 
-<hr />
 - ### Home Page
 
 ![Books Home Page](./client/src/assets/images-markdown/home.png)
